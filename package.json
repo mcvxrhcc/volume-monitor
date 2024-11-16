@@ -1,0 +1,19 @@
+{
+  "name": "volume-monitor",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node  app.js",
+    "db": "node ./database/db.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "better-sqlite3": "^11.5.0",
+    "date-fns": "^4.1.0",
+    "dotenv": "^16.4.5"
+  }
+}
