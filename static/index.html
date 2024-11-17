@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Count Over Time for Each Coin</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  </head>
+  <body>
+    <div id="plot"></div>
+    <script>
+      // This function will be called with the data from Node.js
+      function plotData(data) {
+        const traces = [];
+        const coins = [...new Set(data.map((row) => row.coin))];
+
+        coins.forEach((coin) => {
+          const coinData = data.filter((row) => row.coin === coin);
+          traces.push({
+            x: coinData.map((row) => row.timestamp),
+            y: coinData.map((row) => row.count),
+            mode: 'lines',
+            name: coin,
+          });
+        });
+
+        const layout = {
+          title: 'Count Over Time for Each Coin',
+          autosize: true,
+          height: 1000,
+          width: 2000,
+          xaxis: {
+            title: 'Time',
+            tickformat: '%H:%M %d-%m',
+          },
+          yaxis: {
+            title: 'Count',
+          },
+        };
+
+        Plotly.newPlot('plot', traces, layout, { responsive: true });
+      }
+
+      (async function () {
+        const res = await fetch('http://localhost:3000/data');
+        if (!res.ok) {
+          throw new Error(`Response status: ${res.status}`);
+        }
+        const data = await res.json();
+        console.log(data);
+
+        plotData(data);
+      })();
+    </script>
+  </body>
+</html>
