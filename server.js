@@ -41,7 +41,6 @@ fastify.get('/data', async (_, reply) => {
   return data;
 });
 
-fastify.listen({ port: 3000 }, (err, address) => {
+fastify.listen({ port: 3000 }, (err) => {
   if (err) throw err;
-  console.log(`Server is now listening on ${address}`);
 });
