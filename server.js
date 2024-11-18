@@ -32,7 +32,7 @@ fastify.get('/data', async (_, reply) => {
       FROM volumes
       WHERE
         pings > 3
-        AND net_vol_percent > 0; 
+        AND net_vol_percent > 0;
     `,
     )
     .all();
