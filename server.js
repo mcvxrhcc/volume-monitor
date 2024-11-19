@@ -31,8 +31,9 @@ fastify.get('/data', async (_, reply) => {
         ROW_NUMBER() OVER (PARTITION BY coin) as count
       FROM volumes
       WHERE
-        pings > 3
-        AND net_vol_percent > 0;
+        pings >= 3
+        AND net_vol_percent > 2
+        AND created_at > strftime ('%s', 'now', '-1 days');
     `,
     )
     .all();

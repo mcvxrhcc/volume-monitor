@@ -3,6 +3,7 @@ import db from './database/db.js';
 import { toRow } from './utils/index.js';
 import { WebhookClient, EmbedBuilder } from 'discord.js';
 import { format } from 'date-fns';
+import cron from 'node-cron';
 
 const URL = 'https://agile-cliffs-23967.herokuapp.com/ok';
 const { MEXC_FUTURE_PAIRS, DISCORD_WEBHOOK_URL } = process.env;
@@ -68,3 +69,10 @@ async function main() {
 }
 
 setInterval(main, 60 * 1000);
+
+cron.schedule('0 7 * * 0', () => {
+  db.prepare(
+    "DELETE FROM volumes WHERE created_at < strftime('%s', 'now', '-1 week')",
+  ).run();
+  db.prepare('VACUUM');
+});

@@ -5,8 +5,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node  app.js",
-    "db": "node ./database/db.js"
+    "start": "node app.js",
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +17,7 @@
     "date-fns": "^4.1.0",
     "discord.js": "^14.16.3",
     "dotenv": "^16.4.5",
-    "fastify": "^5.1.0"
+    "fastify": "^5.1.0",
+    "node-cron": "^3.0.3"
   }
 }
