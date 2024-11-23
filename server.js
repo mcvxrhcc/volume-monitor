@@ -33,7 +33,7 @@ fastify.get('/data', async (_, reply) => {
       WHERE
         pings >= 3
         AND net_vol_percent > 2
-        AND created_at > strftime ('%s', 'now', '-1 days');
+       -- AND created_at > strftime ('%s', 'now', '-1 days');
     `,
     )
     .all();

@@ -47,17 +47,25 @@ async function main() {
 
     const { pings, netVolPercent, coin, t } = row;
 
-    if (pings >= 3 && netVolPercent >= 2 && MEXC_FUTURE_PAIRS.includes(coin)) {
-      const embed = new EmbedBuilder()
-        .setTitle(
-          [
-            coin,
-            pings,
-            `${netVolPercent}%`,
-            format(new Date(t * 1000), 'HH:mm:ss dd-MM-yyy'),
-          ].join(' | '),
-        )
-        .setColor(pings >= 5 ? 15548997 : 16705372);
+    if (
+      pings >= 3 &&
+      pings < 10 &&
+      netVolPercent < 5 &&
+      netVolPercent > 0 &&
+      MEXC_FUTURE_PAIRS.includes(coin)
+    ) {
+      const embed = new EmbedBuilder().setTitle(
+        [
+          coin,
+          pings,
+          `${netVolPercent}%`,
+          format(new Date(t * 1000), 'HH:mm:ss dd-MM-yyy'),
+        ].join(' | '),
+      );
+
+      if (pings == 3) {
+        embed.setColor(16705372);
+      }
 
       try {
         await webhookClient.send({ embeds: [embed] });
